@@ -1,10 +1,10 @@
 # CapBypassWrapped
 
-`CapBypassWrapped` is a Python module that provides a wrapper for CapBypass, a captcha solving service. This module allows developers to easily integrate captcha solving functionality into their applications without having to write complex code.
+[CapBypassWrapped](<https://pypi.org/project/capbypasswrapped/>) is a Python module that provides a wrapper for CapBypass, a captcha solving service. This module allows developers to easily integrate captcha solving functionality into their applications without having to write complex code.
 
 ## Installation
 
-To install `CapBypassWrapped`, simply run the following command:
+To install [CapBypassWrapped](<https://pypi.org/project/capbypasswrapped/>), simply run the following command:
 
 ```
 pip install CapBypassWrapped
@@ -12,7 +12,7 @@ pip install CapBypassWrapped
 
 ## Usage
 
-To use `CapBypassWrapped` classes, import them from the module:
+To use [CapBypassWrapped](<https://pypi.org/project/capbypasswrapped/>) classes, import them from the module:
 
 ```python
 from CapBypassWrapped.module import GetBalance, CreateTask, GetTaskResult, CreateClassificationTask
@@ -52,8 +52,8 @@ There are also extra parameters for creating tasks such as `proxy`, `app_id`, `v
 
 ## License
 
-`CapBypassWrapped` is licensed under the Apache License. See the LICENSE file for more information.
+[CapBypassWrapped](<https://pypi.org/project/capbypasswrapped/>) is licensed under the Apache License. See the LICENSE file for more information.
 
 ## Contact
 
-If you have any questions or comments about `CapBypassWrapped`, please contact me on discord at @maxhithere
+If you have any questions or comments about [CapBypassWrapped](<https://pypi.org/project/capbypasswrapped/>), please contact me on discord at @maxhithere
