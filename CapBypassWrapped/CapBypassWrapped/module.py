@@ -28,7 +28,7 @@ class CreateTask(Requester):
 
     def Data(self, client_key, task_type, app_id=None, website_url=None, website_pub_key=None, website_subdomain=None, blob=None, proxy=None, invisible=False, rqdata=None, user_agent=None, verbal=False):
         if task_type == "HCaptchaTask":
-            response = self.make_request(path="/createTask", method="POST", data={"clientKey": client_key, "appId": app_id, "task": {"type": "HCaptchaTask", "websiteURL": website_url, "websiteKey": website_pub_key, "isInvisible": invisible, "enterprisePayload": {"rqdata": rqdata}, "userAgent": user_agent, "proxy": proxy}})
+            response = self.make_request(method="POST", data={"clientKey": client_key, "appId": app_id, "task": {"type": "HCaptchaTask", "websiteURL": website_url, "websiteKey": website_pub_key, "isInvisible": invisible, "enterprisePayload": {"rqdata": rqdata}, "userAgent": user_agent, "proxy": proxy}})
             if response.status_code == 200:
                 if verbal:
                     logging.info("HCaptchaTask solved successfully")
@@ -38,7 +38,7 @@ class CreateTask(Requester):
                     logging.warn("HCaptchaTask failed to solve")
                 return {"errorCode": response.status_code, "errorDescription": response.reason, "solved": False}
         elif task_type == "FunCaptchaTask":
-            response = self.make_request(path="/createTask", method="POST", data={"clientKey": client_key, "appId": app_id, "task": {"type": "FunCaptchaTask", "websiteURL": website_url, "websitePublicKey": website_pub_key, "websiteSubdomain": website_subdomain, "data[blob]": blob, "proxy": proxy}})
+            response = self.make_request(method="POST", data={"clientKey": client_key, "appId": app_id, "task": {"type": "FunCaptchaTask", "websiteURL": website_url, "websitePublicKey": website_pub_key, "websiteSubdomain": website_subdomain, "data[blob]": blob, "proxy": proxy}})
             if response.status_code == 200:
                 if verbal:
                     logging.info("FunCaptchaTask solved successfully")
