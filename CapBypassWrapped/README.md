@@ -12,10 +12,10 @@ pip install CapBypassWrapped
 
 ## Usage
 
-To use `CapBypassWrapped` classes, import them from the module:
+To use `CapBypassWrapped` functions, just import the module:
 
 ```python
-from CapBypassWrapped.module import GetBalance, CreateTask, GetTaskResult, CreateClassificationTask
+import CapBypassWrapped
 ```
 
 There are lots of different functions you can use with lots of customizability.
@@ -24,31 +24,18 @@ Here is every function below and how to initiate each one:
 
 ```python
 def get_balance():
-    result = GetBalance().Data(client_key="key")
-    print(result['balance'])
+    result = CapBypassWrapped.get_balance(client_key="key": str) # optional - verbose: bool
+    print(result) # returns {"balance": str, "errorId": int}
 
 def get_task_result():
-    result = GetTaskResult().Data(client_key="key", task_id="Task ID")
-    print(result['task'])
+    result = CapBypassWrapped().get_task_result(client_key="key": str, task_id="task id": str) # optional - verbose: bool
+    print(result) # returns {"solution": str, "status": str, "errorId": int}  
 
 def create_funcaptcha_task():
-    result = CreateTask().Data(client_key="key", task_type="FunCaptchaTask", website_url="https://www.google.com", website_public_key="XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX")
-    print(result['solution'])
+    result = CapBypassWrapped().create_task(client_key="key", task_type="FunCaptchaTask", website_url="https://www.google.com", website_public_key="XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX") # optional - blob: str, verbal: bool, app_id: str
+    print(result) # returns {"solution": str, "solved": bool}  
 
-def create_hcaptcha_task():
-    result = CreateTask().Data(client_key="key", task_type="HCaptchaTask", website_url="https://www.google.com", website_public_key="XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX", invisible=False, rqdata="Data", user_agent="User Agent")
-    print(result['solution'])
-
-def create_funcaptcha_classification_task():
-    result = CreateClassificationTask().Data(client_key="key", task_type="FunCaptchaClassification", question="Select all images with a car", images="Base64 Encoded Image")
-    print(result['solution'])
-
-def create_hcaptcha_classification_task():
-    result = CreateClassificationTask().Data(client_key="key", task_type="HCaptchaClassification", question="Select the point of the bear's nose.", queries=["Base64 Encoded Image", "Base64 Encoded Image"])
-    print(result['solution'])
 ```
-
-There are also extra parameters for creating tasks such as `proxy`, `app_id`, `verbal`
 
 ## License
 
