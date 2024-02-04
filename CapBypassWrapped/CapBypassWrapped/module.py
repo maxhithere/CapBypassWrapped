@@ -8,7 +8,7 @@ from typing import Dict, Optional, Union
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s", datefmt='[%Y-%m-%d %H:%M:%S]')
 
-BASE_URL = "https://api.capbypass.com"
+BASE_URL = "https://capbypass.com/api"
 
 def make_request(url, method, data=None):
     url = f"{url}"
