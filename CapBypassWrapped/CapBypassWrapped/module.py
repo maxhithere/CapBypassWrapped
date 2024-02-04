@@ -24,51 +24,37 @@ def create_task(
     website_url: str,
     website_pub_key: str,
     website_subdomain: str,
+    proxy: str,
     blob: Optional[str] = None,
     verbal: bool = False,
-    app_id: Optional[str] = None,
 ) -> Union[Dict[str, Union[str, bool]], Dict[str, Union[int, str, bool]]]:
     url = f"{BASE_URL}/createTask"
-    if task_type == "FunCaptchaTask":
+    if task_type == "FunCaptchaTask" or task_type == "FunCaptchaTaskProxyLess":
         dumped_blob = json.dumps({"blob": blob})
+        proxy = proxy.split('@')[1] + ':' + proxy.split('@')[0]
         response = make_request(
             url,
             method="POST",
             data={
                 "clientKey": client_key,
-                "appId": app_id,
                 "task": {
                     "type": "FunCaptchaTaskProxyLess",
                     "websiteURL": website_url,
                     "websitePublicKey": website_pub_key,
                     "funcaptchaApiJSSubdomain": website_subdomain,
-                    "data[blob]": dumped_blob,
+                    "data": dumped_blob,
+                    "proxy": proxy,
+
                 },
             },
         )
         if response.status_code == 200:
             if verbal:
-                logging.info("FunCaptchaTask created successfully, solving...")
+                logging.info("FunCaptchaTask created successfully")
                 task_id = response.json().get("taskId")
-                status = get_task_result(client_key, task_id, verbal)
-                stat = status.get("status", "failed")
-                while stat != "ready":
-                    time.sleep(0.3)
-                    status = get_task_result(client_key, task_id, verbal)
-                    stat = status.get("status", "failed")
-                    if stat == "ready":
-                        logging.info("FunCaptchaTask solved successfully")
-                        solution = status.get("solution")
-                        return {"solution": solution, "solved": True}
-                    if stat == "failed":
-                        if verbal:
-                            logging.warning(f"Failed to solve captcha: {status}")
-                        return {
-                            "errorCode": 1,
-                            "errorDescription": status,
-                            "solved": False,
-                        }
-
+                return {
+                    "taskId": task_id,
+                }
             else:
                 if verbal:
                     logging.warn("FunCaptchaTask failed to create")
@@ -80,6 +66,7 @@ def create_task(
         else:
             if verbal:
                 logging.warning("Invalid task type")
+            return None
 
 def get_task_result(
     client_key: str,
@@ -119,3 +106,5 @@ def get_balance(
         if verbal:
             logging.warn("Balance retrieval failed")
         return {"errorCode": response.status_code, "errorDescription": response.reason}
+    
+

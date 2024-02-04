@@ -24,16 +24,16 @@ Here is every function below and how to initiate each one:
 
 ```python
 def get_balance():
-    result = CapBypassWrapped.get_balance(client_key="key": str) # optional - verbose: bool
+    result = CapBypassWrapped.get_balance(client_key="": str) # optional - verbose: bool
     print(result) # returns {"balance": str, "errorId": int}
 
 def get_task_result():
-    result = CapBypassWrapped().get_task_result(client_key="key": str, task_id="task id": str) # optional - verbose: bool
+    result = CapBypassWrapped.get_task_result(client_key="": str, task_id="": str) # optional - verbose: bool
     print(result) # returns {"solution": str, "status": str, "errorId": int}  
 
 def create_funcaptcha_task():
-    result = CapBypassWrapped().create_task(client_key="key", task_type="FunCaptchaTask", website_url="https://www.google.com", website_public_key="XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX") # optional - blob: str, verbal: bool, app_id: str
-    print(result) # returns {"solution": str, "solved": bool}  
+    result = CapBypassWrapped.create_task(client_key="", task_type="", website_url="", website_public_key="", proxy="") # optional - blob: str, verbose: bool
+    print(result) # returns {"taskId": str}  
 
 ```
 
