@@ -18,21 +18,29 @@ To use `CapBypassWrapped` functions, just import the module:
 import CapBypassWrapped
 ```
 
+Now initialize the CapBypassWrapped class with your according parameters.
+
+```python
+capbypass_instance = CapBypassWrapped(client_key="": str, verbal=False: bool, custom_http_client=None: any)
+```
+
 There are lots of different functions you can use with lots of customizability.
 
 Here is every function below and how to initiate each one:
 
 ```python
+capbypass_instance = CapBypassWrapped(client_key="": str, verbal=False: bool, custom_http_client=None: any)
+
 def get_balance():
-    result = CapBypassWrapped.get_balance(client_key="": str) # optional - verbose: bool
-    print(result) # returns {"balance": str, "errorId": int}
+    result = capbypass_instance.get_balance()
+    print(result) # returns {"credits": str, "errorId": int}
 
 def get_task_result():
-    result = CapBypassWrapped.get_task_result(client_key="": str, task_id="": str) # optional - verbose: bool
+    result = CapBypassWrapped.get_task_result(task_id="": str) 
     print(result) # returns {"solution": str, "status": str, "errorId": int}  
 
 def create_funcaptcha_task():
-    result = CapBypassWrapped.create_task(client_key="", task_type="", website_url="", website_public_key="", proxy="") # optional - blob: str, verbose: bool
+    result = CapBypassWrapped.create_task(task_type="": str, website_url="": str, website_public_key="": str) # optional - blob: str
     print(result) # returns {"taskId": str}  
 
 ```
