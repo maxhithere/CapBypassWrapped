@@ -11,7 +11,7 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(me
 
 BASE_URL = "https://capbypass.com/api"
 
-class CapBypass:
+class CapBypassWrapped:
     def __init__(self, client_key: str, verbal: bool = False, custom_http_client: Optional[httpx.Client] = None):
         self.client_key = client_key
         self.verbal = verbal
@@ -116,3 +116,4 @@ class CapBypass:
             if self.verbal:
                 logging.warn("Balance retrieval failed")
             return {"errorCode": response.status_code, "errorDescription": response.reason}
+        
