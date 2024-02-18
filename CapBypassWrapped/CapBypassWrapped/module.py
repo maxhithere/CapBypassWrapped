@@ -20,7 +20,7 @@ class CapBypassWrapped:
     def make_request(self, url, method, data=None):
         return getattr(self.custom_http_client, method.lower())(url, json=data)
     
-    def format_proxy(proxy: str) -> Optional[str]:
+    def format_proxy(self, proxy: str) -> Optional[str]:
         patterns = [
             r'https://([^:/]+):([^@/]+)@([^:/]+):(\d+)',
             r'https://([^:/]+):([^@/]+)@([^:/]+):(\d+)',
