@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='capbypasswrapped',
-    version='2.1.0',
+    version='2.2.0',
     packages=find_packages(),
     setup_requires=['setuptools_scm', 'wheel'],
     long_description=open('README.md').read(),
