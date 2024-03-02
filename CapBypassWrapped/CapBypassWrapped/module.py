@@ -20,25 +20,20 @@ class CapBypassWrapped:
     def make_request(self, url, method, data=None):
         return getattr(self.custom_http_client, method.lower())(url, json=data)
     
-    def format_proxy(self, proxy: str) -> Optional[str]:
-        patterns = [
-            r'https://([^:/]+):([^@/]+)@([^:/]+):(\d+)',
-            r'https://([^:/]+):([^@/]+)@([^:/]+):(\d+)',
-            r'https://([^:/]+):(\d+)',
-            r'https://([^:/]+):(\d+):([^@/]+):([^@/]+)',
-            r'https://([^:/]+):(\d+)@([^:/]+):([^@/]+)',
-            r'([^:/]+):(\d+)',
-            r'([^@/]+):([^@/]+):([^:/]+):(\d+)',
-            r'([^@/]+):([^@/]+)@([^:/]+):(\d+)',
-            r'([^:/]+):(\d+):([^@/]+):([^@/]+)',
-            r'([^:/]+):(\d+)@([^@/]+):([^@/]+)'
-        ]
-
-        for pattern in patterns:
-            match = re.match(pattern, proxy)
-            if match:
-                return ':'.join(match.groups())
-        return None
+    def format_proxy(self, proxy):
+        regex = r"(?:https://)?(?:(?P<username>\S+):(?P<password>\S+)@)?(?P<hostname>\S+):(?P<port>\S+)"
+        match = re.match(regex, proxy)
+        if match:
+            formatted_string = f"{match['hostname']}"
+            if match.group('port'):
+                formatted_string += f":{match['port']}"
+            if match.group('username'):
+                formatted_string += f"@{match['username']}"
+            if match.group('password'):
+                formatted_string += f":{match['password']}"
+            return formatted_string
+        else:
+            return None
 
     def create_task(
         self,
@@ -73,12 +68,12 @@ class CapBypassWrapped:
                     logging.info("FunCaptchaTask created successfully")
                     task_id = response.json().get("taskId")
                     return {"taskId": task_id}
-                else:
+            elif response.status_code != 200:
                     if self.verbal:
                         logging.warn("FunCaptchaTask failed to create")
                     return {
                         "errorCode": response.status_code,
-                        "errorDescription": response.reason,
+                        "errorDescription": response.text,
                     }
             else:
                 if self.verbal:
@@ -99,7 +94,7 @@ class CapBypassWrapped:
         else:
             if self.verbal:
                 logging.warn("Task result retrieval failed")
-            return {"errorCode": response.status_code, "errorDescription": response.reason}
+            return {"errorCode": response.status_code, "errorDescription": response.text}
 
     def get_balance(self) -> Union[Dict[str, Union[str, bool]], Dict[str, Union[int, str, bool]]]:
         url = f"{BASE_URL}/getBalance"
@@ -115,5 +110,5 @@ class CapBypassWrapped:
         else:
             if self.verbal:
                 logging.warn("Balance retrieval failed")
-            return {"errorCode": response.status_code, "errorDescription": response.reason}
+            return {"errorCode": response.status_code, "errorDescription": response.text}
         
