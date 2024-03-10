@@ -58,7 +58,7 @@ class CapBypassWrapped:
                 data={
                     "clientKey": self.client_key,
                     "task": {
-                        "type": "FunCaptchaTaskProxyLess",
+                        "type": "FunCaptchaTask",
                         "websiteURL": website_url,
                         "websitePublicKey": website_pub_key,
                         "funcaptchaApiJSSubdomain": website_subdomain,
