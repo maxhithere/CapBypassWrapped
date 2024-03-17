@@ -116,6 +116,21 @@ class CapBypassWrapped:
                 logging.warn("Balance retrieval failed")
             return {"errorCode": response.status_code, "errorDescription": response.text}
         
+    def get_status(self) -> Union[Dict[str, Union[str, bool]], Dict[str, Union[int, str, bool]]]:
+        url = f"{BASE_URL}/status"
+        response = self.make_request(
+            url,
+            method="GET",
+        )
+        if response.status_code == 200:
+            if self.verbal:
+                logging.info("Status retrieved successfully")
+            return response.json()
+        else:
+            if self.verbal:
+                logging.warn("Status retrieval failed")
+            return {"errorCode": response.status_code, "errorDescription": response.text}
+        
     
     def create_and_get_task_result(self, task_type: str, website_url: str, website_pub_key: str, website_subdomain: str, proxy: str, blob: Optional[str] = None, delay: int = 5) -> Union[Dict[str, Union[str, bool]], Dict[str, Union[int, str, bool]]]:
         task = self.create_task(task_type, website_url, website_pub_key, website_subdomain, proxy, blob)
