@@ -35,6 +35,10 @@ def get_balance():
     result = capbypass_instance.get_balance()
     print(result) # returns {"credits": str, "errorId": int}
 
+def get_status():
+    result = capbypass_instance.get_status()
+    print(result) # returns {"tasks":{"FunCaptchaTask": str,"FunCaptchaClassification": str},"problems": dict}
+
 def get_task_result():
     result = CapBypassWrapped.get_task_result(task_id="": str) 
     print(result) # returns {"solution": str, "status": str, "errorId": int}  
