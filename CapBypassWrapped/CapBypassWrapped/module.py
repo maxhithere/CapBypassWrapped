@@ -61,7 +61,7 @@ class CapBypassWrapped:
                         "type": task_type,
                         "websiteURL": website_url,
                         "websitePublicKey": website_pub_key,
-                        "funcaptchaApiJSSubdomain": website_subdomain,
+                        "websiteSubdomain": website_subdomain,
                         "data": dumped_blob,
                         "proxy": proxy,
                     },
