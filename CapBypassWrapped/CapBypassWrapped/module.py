@@ -49,7 +49,7 @@ class CapBypassWrapped:
         blob: Optional[str] = None,
     ) -> Union[Dict[str, Union[str, bool]], Dict[str, Union[int, str, bool]]]:
         url = f"{BASE_URL}/createTask"
-        if task_type == "FunCaptchaTask" or task_type == "FunCaptchaTaskProxyLess":
+        if task_type == "FunCaptchaTask" or task_type == "FunCaptchaProxylessTask":
             dumped_blob = json.dumps({"blob": blob})
             proxy = self.format_proxy(proxy)
             response = self.make_request(
@@ -58,7 +58,7 @@ class CapBypassWrapped:
                 data={
                     "clientKey": self.client_key,
                     "task": {
-                        "type": "FunCaptchaTask",
+                        "type": task_type,
                         "websiteURL": website_url,
                         "websitePublicKey": website_pub_key,
                         "funcaptchaApiJSSubdomain": website_subdomain,
@@ -70,8 +70,8 @@ class CapBypassWrapped:
             if response.status_code == 200:
                 if self.verbal:
                     logging.info("FunCaptchaTask created successfully")
-                    task_id = response.json().get("taskId")
-                    return {"taskId": task_id}
+                task_id = response.json().get("taskId")
+                return {"taskId": task_id}
             elif response.status_code != 200:
                     if self.verbal:
                         logging.warn("FunCaptchaTask failed to create")
