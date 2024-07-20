@@ -40,23 +40,23 @@ def get_status():
     print(result) # returns {"tasks":{"FunCaptchaTask": str,"FunCaptchaClassification": str},"problems": dict}
 
 def get_task_result():
-    result = CapBypassWrapped.get_task_result(task_id="": str) 
+    result = capbypass_instance.get_task_result(task_id="": str) 
     print(result) # returns {"solution": str, "status": str, "errorId": int}  
 
 def create_funcaptcha_task():
-    result = CapBypassWrapped.create_task(task_type="": str, website_url="": str, website_public_key="": str) # optional - blob: str
+    result = capbypass_instance.create_task(task_type="": str, website_url="": str, website_public_key="": str) # optional - blob: str
     print(result) # returns {"taskId": str}  
 
 def create_and_get_task_result_funcaptcha_task():
-    result = CapBypassWrapped.create_and_get_task_result(task_type="": str, website_url="": str, website_public_key="": str, delay=5: int) # optional - blob: str
+    result = capbypass_instance.create_and_get_task_result(task_type="": str, website_url="": str, website_pub_key="": str, website_subdomain="", delay=5: int) # optional - blob: str
     print(result) # returns {"taskId": str, "solution": str, "time": int} 
 
 def create_classification_funcaptcha_task():
-    result = CapBypassWrapped.create_classification_task(task_type="": str, image="": str, question="": str)
+    result = capbypass_instance.create_classification_task(task_type="": str, image="": str, question="": str)
     print(result) # returns {"taskId": str}  
 
 def create_and_get_classification_funcaptcha_task_result():
-    result = CapBypassWrapped.create_and_get_classification_task_result(task_type="": str, image="": str, question="": str, delay=5: int)
+    result = capbypass_instance.create_and_get_classification_task_result(task_type="": str, image="": str, question="": str, delay=5: int)
     print(result) # returns {"taskId": str, "solution": str, "time": int} 
 
 ```
